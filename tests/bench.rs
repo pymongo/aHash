@@ -14,7 +14,12 @@ const AHASH_IMPL: &str = if cfg!(any(
         target_feature = "aes",
         not(miri),
     ),
-    all(feature = "nightly-arm-aes", target_arch = "aarch64", target_feature = "aes", not(miri)),
+    all(
+        feature = "nightly-arm-aes",
+        target_arch = "aarch64",
+        target_feature = "aes",
+        not(miri)
+    ),
     all(
         feature = "nightly-arm-aes",
         target_arch = "arm",
@@ -26,6 +31,12 @@ const AHASH_IMPL: &str = if cfg!(any(
 } else {
     "fallbackhash"
 };
+
+fn rustc_hash_<H: Hash>(b: &H) -> u64 {
+    let mut hasher = rustc_hash::FxHasher::default();
+    b.hash(&mut hasher);
+    hasher.finish()
+}
 
 fn ahash<H: Hash>(b: &H) -> u64 {
     let build_hasher = RandomState::with_seeds(1, 2, 3, 4);
@@ -56,10 +67,10 @@ fn seahash<H: Hash>(b: &H) -> u64 {
     hasher.finish()
 }
 
-const STRING_LENGTHS: [u32; 12] = [1, 3, 4, 7, 8, 15, 16, 24, 33, 68, 132, 1024];
+// const STRING_LENGTHS: [u32; 12] = [1, 3, 4, 7, 8, 15, 16, 24, 33, 68, 132, 1024];
 
 fn gen_strings() -> Vec<String> {
-    STRING_LENGTHS
+    [1, 3, 4, 7, 8, 15, 16, 24, 33, 68]
         .iter()
         .map(|len| {
             let mut string = String::default();
@@ -79,10 +90,10 @@ macro_rules! bench_inputs {
 
         let mut rng = rand::thread_rng();
         $group.bench_function("u8", |b| b.iter_batched(|| rng.gen::<u8>(), |v| $hash(&v), size));
-        $group.bench_function("u16", |b| b.iter_batched(|| rng.gen::<u16>(), |v| $hash(&v), size));
+        // $group.bench_function("u16", |b| b.iter_batched(|| rng.gen::<u16>(), |v| $hash(&v), size));
         $group.bench_function("u32", |b| b.iter_batched(|| rng.gen::<u32>(), |v| $hash(&v), size));
         $group.bench_function("u64", |b| b.iter_batched(|| rng.gen::<u64>(), |v| $hash(&v), size));
-        $group.bench_function("u128", |b| b.iter_batched(|| rng.gen::<u128>(), |v| $hash(&v), size));
+        // $group.bench_function("u128", |b| b.iter_batched(|| rng.gen::<u128>(), |v| $hash(&v), size));
         $group.bench_with_input("strings", &gen_strings(), |b, s| b.iter(|| $hash(black_box(s))));
     };
 }
@@ -90,6 +101,11 @@ macro_rules! bench_inputs {
 fn bench_ahash(c: &mut Criterion) {
     let mut group = c.benchmark_group(AHASH_IMPL);
     bench_inputs!(group, ahash);
+}
+
+fn bench_rustc_hash(c: &mut Criterion) {
+    let mut group = c.benchmark_group("rustc_hash");
+    bench_inputs!(group, rustc_hash_);
 }
 
 fn bench_fx(c: &mut Criterion) {
@@ -188,12 +204,4 @@ fn bench_map(c: &mut Criterion) {
 
 criterion_main!(benches);
 
-criterion_group!(
-    benches,
-    bench_ahash,
-    bench_fx,
-    bench_fnv,
-    bench_sea,
-    bench_sip,
-    bench_map
-);
+criterion_group!(benches, bench_ahash, bench_rustc_hash, bench_fx,);

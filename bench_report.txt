@@ -1,0 +1,75 @@
+rustc_hash/u8           time:   [251.20 ps 253.79 ps 256.82 ps]
+Found 13 outliers among 100 measurements (13.00%)
+  4 (4.00%) high mild
+  9 (9.00%) high severe
+rustc_hash/u16          time:   [255.03 ps 256.66 ps 258.48 ps]
+Found 8 outliers among 100 measurements (8.00%)
+  6 (6.00%) high mild
+  2 (2.00%) high severe
+rustc_hash/u32          time:   [263.35 ps 268.99 ps 276.22 ps]
+Found 11 outliers among 100 measurements (11.00%)
+  4 (4.00%) high mild
+  7 (7.00%) high severe
+rustc_hash/u64          time:   [325.93 ps 329.82 ps 334.48 ps]
+Found 6 outliers among 100 measurements (6.00%)
+  4 (4.00%) high mild
+  2 (2.00%) high severe
+rustc_hash/u128         time:   [506.67 ps 509.81 ps 513.43 ps]
+Found 4 outliers among 100 measurements (4.00%)
+  1 (1.00%) high mild
+  3 (3.00%) high severe
+rustc_hash/strings      time:   [198.54 ns 199.34 ns 200.23 ns]
+Found 6 outliers among 100 measurements (6.00%)
+  4 (4.00%) high mild
+  2 (2.00%) high severe
+
+
+
+fx/u8                   time:   [253.27 ps 257.66 ps 263.03 ps]
+Found 6 outliers among 100 measurements (6.00%)
+  3 (3.00%) high mild
+  3 (3.00%) high severe
+fx/u16                  time:   [255.71 ps 257.65 ps 259.82 ps]
+Found 9 outliers among 100 measurements (9.00%)
+  5 (5.00%) high mild
+  4 (4.00%) high severe
+fx/u32                  time:   [255.27 ps 257.20 ps 259.22 ps]
+Found 3 outliers among 100 measurements (3.00%)
+  2 (2.00%) high mild
+  1 (1.00%) high severe
+fx/u64                  time:   [338.03 ps 342.70 ps 348.01 ps]
+Found 15 outliers among 100 measurements (15.00%)
+  9 (9.00%) high mild
+  6 (6.00%) high severe
+fx/u128                 time:   [526.11 ps 533.30 ps 541.11 ps]
+Found 10 outliers among 100 measurements (10.00%)
+  7 (7.00%) high mild
+  3 (3.00%) high severe
+fx/strings              time:   [205.96 ns 206.93 ns 208.02 ns]
+Found 4 outliers among 100 measurements (4.00%)
+  1 (1.00%) high mild
+  3 (3.00%) high severe
+
+
+fallbackhash/u8         time:   [494.26 ps 496.30 ps 498.66 ps]
+Found 5 outliers among 100 measurements (5.00%)
+  4 (4.00%) high mild
+  1 (1.00%) high severe
+fallbackhash/u16        time:   [909.21 ps 916.16 ps 924.70 ps]
+Found 6 outliers among 100 measurements (6.00%)
+  4 (4.00%) high mild
+  2 (2.00%) high severe
+fallbackhash/u32        time:   [866.99 ps 875.80 ps 885.84 ps]
+Found 6 outliers among 100 measurements (6.00%)
+  6 (6.00%) high severe
+fallbackhash/u64        time:   [774.37 ps 779.05 ps 783.62 ps]
+Found 2 outliers among 100 measurements (2.00%)
+  2 (2.00%) high mild
+fallbackhash/u128       time:   [790.77 ps 799.76 ps 809.16 ps]
+Found 6 outliers among 100 measurements (6.00%)
+  3 (3.00%) high mild
+  3 (3.00%) high severe
+fallbackhash/strings    time:   [117.65 ns 118.54 ns 119.55 ns]
+Found 8 outliers among 100 measurements (8.00%)
+  4 (4.00%) high mild
+  4 (4.00%) high severe

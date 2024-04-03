@@ -70,6 +70,13 @@ fn compare_fxhash(c: &mut Criterion) {
     compare_other(c, "compare_fxhash", builder)
 }
 
+fn compare_rustc_hash(c: &mut Criterion) {
+    let int: u64 = 1234;
+    let string = create_string(1024);
+    let builder = BuildHasherDefault::<rustc_hash::FxHasher>::default();
+    compare_other(c, "compare_rustc_hash", builder)
+}
+
 fn compare_highway(c: &mut Criterion) {
     let int: u64 = 1234;
     let string = create_string(1024);
@@ -123,14 +130,6 @@ criterion_main!(compare);
 criterion_group!(
     compare,
     compare_ahash,
-    compare_farmhash,
-    compare_fnvhash,
     compare_fxhash,
-    compare_highway,
-    compare_metro,
-    compare_t1ha,
-    compare_sip13,
-    compare_sip24,
-    compare_wyhash,
-    compare_xxhash,
+    compare_rustc_hash
 );
